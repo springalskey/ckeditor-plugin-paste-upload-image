@@ -9,7 +9,7 @@ html
 ```
 1. download plugin(https://ckeditor.com/cke4/addon/pasteUploadImage)
 2. copy to ckeditor/plugin category
-3. modify ckeditor/config.js:
+3. edit ckeditor/config.js:
 
    // required  
    1) config.extraPlugins = 'pasteUploadImage';
@@ -19,5 +19,6 @@ html
 
    // optional  
    3) config.pasteUploadImageUrlApi = 'your api';
-```
 
+   If you not config 3), will use 1) to instead it 翻译
+```
