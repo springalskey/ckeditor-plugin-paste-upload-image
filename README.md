@@ -1,4 +1,4 @@
-# pasteUploadImage Ckeditor Plugin
+# pasteUploadImage Ckeditor4 Plugin
 Base on paste event,
 1. Automatically upload images.
 2. Automatically upload image url (parse html get '<img>' src to backend download,then backend will return a new image url).
