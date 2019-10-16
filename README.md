@@ -1,0 +1,2 @@
+# pasteUploadImage
+ckeditor plugin
