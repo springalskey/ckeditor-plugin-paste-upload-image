@@ -5,19 +5,19 @@ Base on paste event,
 
 
 # usage
-html```
+html
+```
 1. download plugin(https://ckeditor.com/cke4/addon/pasteUploadImage)
 2. copy to ckeditor/plugin category
 3. modify ckeditor/config.js:
 
-  // required
-  1)config.extraPlugins = 'pasteUploadImage';
+   // required  
+   1) config.extraPlugins = 'pasteUploadImage';
 
-  // required
-  2)config.pasteUploadFileApi = 'your api';
+   // required  
+   2) config.pasteUploadFileApi = 'your api';
 
-  // optional
-  3)config.pasteUploadImageUrlApi = 'your api';
-
+   // optional  
+   3) config.pasteUploadImageUrlApi = 'your api';
 ```
 
