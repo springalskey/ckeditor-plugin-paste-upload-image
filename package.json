@@ -1,0 +1,27 @@
+{
+  "name": "pasteuploadimage",
+  "version": "1.0.0",
+  "description": "pasteUploadImage",
+  "author": "springalskey",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && webpack -p --progress"
+  },
+  "homepage": "https://github.com/springalskey/pasteUploadImage",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/springalskey/pasteUploadImage.git"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "core-js": "^2.6.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "rimraf": "^2.5.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
