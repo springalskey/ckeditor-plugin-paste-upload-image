@@ -20,5 +20,5 @@ html
    // optional  
    3) config.pasteUploadImageUrlApi = 'your api';
 
-   If you not config 3), will use 1) to instead it 翻译
+   If you not config 3), will use 1) to instead it
 ```
