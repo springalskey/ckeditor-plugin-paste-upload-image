@@ -1,14 +1,18 @@
 (function () {
-  CKEDITOR.plugins.add('pasteUploadImage', {
-    init: function(editor) {
 
+  var CKEDITOR_NAME = 'pasteUploadImage';
+
+  CKEDITOR.plugins.add(CKEDITOR_NAME, {
+    init: function(editor) {
+      var config = editor.config;
+      var notSupportText = 'Your browser is not supported'
       if (!window.Promise || !window.XMLHttpRequest) {
-        alert('Your browser is not supported');
+        alert(notSupportText);
         return;
       }
 
-      if (!editor.config.pasteUploadFileApi) {
-        CKEDITOR.error('You must to set config.pasteUploadFileApi in ckeditor/config.js');
+      if (!config.pasteUploadFileApi) {
+        CKEDITOR.error('You must to config "config.pasteUploadFileApi" in ckeditor/config.js');
         return;
       }
 
@@ -16,23 +20,26 @@
         var dataTransfer = event.data.dataTransfer;
         var filesCount = dataTransfer.getFilesCount();
         var oldUrl = event.data.dataValue;
+        // base64 paste from word
+        if (oldUrl.match(/<img[\s\S]+data:/i)) {
+          return;
+        }
+        // 去重一些src data-src等造成的重复图片
         var urls = uniq(oldUrl.match(/(?<=img.*?[\s]src=")[^"]+(?=")/gi));
         if (filesCount > 0) {
           for (var i = 0; i < filesCount; i++) {
             var file = dataTransfer.getFile(i);
-            // base64（Word多个），只能上传一个。要么支持上传base64，就可以上传2个
-            if (oldUrl.match(/<img[\s\S]+data:/i)) {
-              var modalUrl = window.URL.createObjectURL(file);
-              modal(modalUrl);
-              uploadFile(urls[0], modalUrl, file);
-            }
             // 网页复制单个
-            else if (urls.length) {
+            if (urls.length) {
               modal(urls[0]);
               uploadFile(urls[0], urls[0], file);
             }
-            //本地imagename.png 或 Word单个
+            //本地imagename.png
             else {
+              if (!window.URL || !window.URL.createObjectURL) {
+                alert(notSupportText);
+                return;
+              }
               var modalUrl = window.URL.createObjectURL(file);
               var isCreateImage = true;
               modal(modalUrl);
@@ -54,7 +61,7 @@
         var formData = new FormData();
         formData.append('upload', file);
         var option = {
-          url: editor.config.pasteUploadFileApi,
+          url: config.pasteUploadFileApi,
           data: formData
         };
         ajaxPost(option).then(function (text) {
@@ -75,7 +82,7 @@
       }
 
       function uploadImageUrl (oldUrl) {
-        var url = editor.config.pasteUploadImageUrlApi || editor.config.pasteUploadFileApi;
+        var url = config.pasteUploadImageUrlApi || config.pasteUploadFileApi;
         var option = {
           url: url + '?url=' + oldUrl
         };
@@ -103,13 +110,12 @@
           xhr.send(option.data);
           xhr.onreadystatechange = function() {
             if(xhr.readyState === 4 && xhr.status == 200) {
-              var text =  xhr.responseText;
-              var match = text.match(/(?<="|')(http|https):(.+?)(?="|')/g);
-              if (match && match[0]) {
-                text = match[0].replace(/\\/g, '');
-                resolve(text);
+              var text =  xhr.responseText || '{}';
+              var data = JSON.parse(text);
+              if (data.url) {
+                resolve(data.url);
               } else {
-              // 没有返回图片链接则reject
+                // 没有返回图片链接则reject
                 reject();
               }
               xhr = null;

@@ -1,24 +1,29 @@
 # pasteUploadImage Ckeditor4 Plugin
+html
+```
 Base on paste event,
 1. Automatically upload images.
-2. Automatically upload image url (parse html get '<img>' src to backend download,then backend will return a new image url).
-
+2. Automatically upload image url (parse html get '<img>' src to backend download, will return a new image url).
+```
 
 # usage
 html
 ```
 1. download plugin(https://ckeditor.com/cke4/addon/pasteUploadImage)
-2. copy to ckeditor/plugin category
+2. copy to ckeditor/plugins category
 3. edit ckeditor/config.js:
 
-   // required  
+   // required
    1) config.extraPlugins = 'pasteUploadImage';
 
-   // required  
-   2) config.pasteUploadFileApi = 'your api';
+   // required
+   2) config.pasteUploadFileApi = 'api';
 
-   // optional  
-   3) config.pasteUploadImageUrlApi = 'your api';
+   // optional
+   3) config.pasteUploadImageUrlApi = 'api';
+
+   // pastefromword must add '?'
+   4) config.filebrowserImageUploadUrl = '/api?';
 
    If you not config 3), will use 1) to instead it
 ```
