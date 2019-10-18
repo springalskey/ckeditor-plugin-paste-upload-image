@@ -1,5 +1,4 @@
 # pasteUploadImage Ckeditor4 Plugin
-html
 ```
 Base on paste event,
 1. Automatically upload images.
@@ -7,7 +6,6 @@ Base on paste event,
 ```
 
 # usage
-html
 ```
 1. download plugin(https://ckeditor.com/cke4/addon/pasteUploadImage)
 2. copy to ckeditor/plugins category
