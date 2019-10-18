@@ -22,8 +22,18 @@ html
    // optional
    3) config.pasteUploadImageUrlApi = 'api';
 
-   // pastefromword must add '?'
+   // pastefromword must add '?' 
    4) config.filebrowserImageUploadUrl = '/api?';
 
-   If you not config 3), will use 1) to instead it
+   If you not config 3), will use 1) to instead it.
+
+4. FormData filename = 'upload'
+
+5. uploaded result:
+  data = {
+    filename: '',
+    url: 'new url',
+    uploaded: 1
+  }
+
 ```
