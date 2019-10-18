@@ -84,7 +84,7 @@
       function uploadImageUrl (oldUrl) {
         var url = config.pasteUploadImageUrlApi || config.pasteUploadFileApi;
         var option = {
-          url: url + '?url=' + oldUrl
+          url: url + '?url=' + encodeURIComponent(oldUrl)
         };
         ajaxPost(option).then(function (text) {
           if (text === 'request time out') {
@@ -160,6 +160,7 @@
       }
   
       function updateModal (filename, result) {
+        filename = filename.replace(/&amp;/g, '&');
         var selector = 'div.modal-editor-upload[filename="'+filename+'"]';
         var content = document.querySelector(selector);
         var label = content.querySelector('label');
@@ -191,7 +192,7 @@
             data = data.replace(oldUrl, '<img src="'+newUrl+'"/>');
           }
         } else {
-          data = data.replace(oldUrl, newUrl);
+          data = replaceAll(data, oldUrl, newUrl);
         }
         editor.document.$.body.innerHTML = data;
       }
@@ -205,6 +206,14 @@
           }
         }
         return list;
+      }
+
+      function escapeRegExp(str) {
+        return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+      }
+    
+      function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
       }
 
     }
