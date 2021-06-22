@@ -194,7 +194,7 @@
         } else {
           data = replaceAll(data, oldUrl, newUrl);
         }
-        editor.document.$.body.innerHTML = data;
+		editor.setData(data);
       }
 
       function uniq (arr) {
